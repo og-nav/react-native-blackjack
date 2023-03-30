@@ -9,14 +9,20 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-navigation/drawer": "^6.6.2",
+    "@react-navigation/native": "^6.1.6",
     "expo": "~48.0.9",
     "expo-status-bar": "~1.4.4",
+    "native-base": "^3.4.28",
     "react": "18.2.0",
-    "react-native": "0.71.4"
+    "react-native": "0.71.4",
+    "react-native-gesture-handler": "^2.9.0",
+    "react-native-reanimated": "~2.14.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~18.0.14",
+    "@types/react-native-table-component": "^1.2.4",
     "typescript": "^4.9.4"
   },
   "private": true
