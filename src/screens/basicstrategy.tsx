@@ -33,6 +33,7 @@ export default function BasicStrategy() {
 		}
 	}, []);
 	//bottom sheet
+
 	//toast
 	const [showAnimation, setShowAnimation] = useState(false);
 	const nextHand = useCallback(() => {
@@ -40,15 +41,16 @@ export default function BasicStrategy() {
 		resetDeck();
 		dealHands();
 	}, []);
-	const [correct, setCorrect] = useState(true);
+	const [isCorrect, setIsCorrect] = useState(true);
 	//toast
+
 	const [ndecks, setNDecks] = useState(1);
 	const [deck, setDeck] = useState(shuffle(createDeck(ndecks)));
 	const [playerHand, setPlayerHand] = useState<Card[]>([]);
 	const [dealerHand, setDealerHand] = useState<Card[]>([]);
 	//const [isDealerCardVisible, setIsDealerCardVisible] = useState(false);
 
-	const [p, setp] = useState<any>();
+	//const [p, setp] = useState<any>();
 
 	const dealHands = () => {
 		//treating end of array as top of deck
@@ -63,7 +65,7 @@ export default function BasicStrategy() {
 		setPlayerHand(playerHandTemp);
 		//setp1(playerHandTemp[0].value + playerHandTemp[0].suit)
 		setDealerHand(dealerHandTemp);
-		setp(`${playerHandTemp[0].value}${playerHandTemp[0].suit}`);
+		//setp(`${playerHandTemp[0].value}${playerHandTemp[0].suit}`);
 
 		return [dealerHandTemp, playerHandTemp];
 	};
@@ -85,31 +87,27 @@ export default function BasicStrategy() {
 		>
 			<Navbar />
 			<Text fontSize='30'>Basic Strategy Trainer</Text>
-			{showAnimation && <Toast correct={correct} />}
+			{showAnimation && <Toast correct={isCorrect} />}
 
 			{playerHand.length > 0 ? (
 				<>
 					<VStack>
 						<HStack mb='10' mt='10'>
-							<Image source={p} alt='s' />
-							<Text>
-								{dealerHand[0].value}
-								{dealerHand[0].suit}
-							</Text>
-							<Text>
-								{dealerHand[1].value}
-								{dealerHand[1].suit}
-							</Text>
+							{getCardImage(
+								`${dealerHand[0].value}${dealerHand[0].suit}`
+							)}
+
+							{getCardImage(
+								`${dealerHand[1].value}${dealerHand[1].suit}`
+							)}
 						</HStack>
 						<HStack>
-							<Text>
-								{playerHand[0].value}
-								{playerHand[0].suit}
-							</Text>
-							<Text>
-								{playerHand[1].value}
-								{playerHand[1].suit}
-							</Text>
+							{getCardImage(
+								`${playerHand[0].value}${playerHand[0].suit}`
+							)}
+							{getCardImage(
+								`${playerHand[1].value}${playerHand[1].suit}`
+							)}
 						</HStack>
 					</VStack>
 
@@ -144,11 +142,11 @@ export default function BasicStrategy() {
 									'Hit'
 								) {
 									//corrent
-									setCorrect(true);
+									setIsCorrect(true);
 									setShowAnimation(true);
 								} else {
 									//incorrect
-									setCorrect(false);
+									setIsCorrect(false);
 									setShowAnimation(true);
 								}
 							}}
@@ -166,11 +164,11 @@ export default function BasicStrategy() {
 									'Split'
 								) {
 									//corrent
-									setCorrect(true);
+									setIsCorrect(true);
 									setShowAnimation(true);
 								} else {
 									//incorrect
-									setCorrect(false);
+									setIsCorrect(false);
 									setShowAnimation(true);
 								}
 							}}
@@ -188,11 +186,11 @@ export default function BasicStrategy() {
 									'Stand'
 								) {
 									//corrent
-									setCorrect(true);
+									setIsCorrect(true);
 									setShowAnimation(true);
 								} else {
 									//incorrect
-									setCorrect(false);
+									setIsCorrect(false);
 									setShowAnimation(true);
 								}
 							}}
@@ -210,11 +208,11 @@ export default function BasicStrategy() {
 									'Double Down'
 								) {
 									//corrent
-									setCorrect(true);
+									setIsCorrect(true);
 									setShowAnimation(true);
 								} else {
 									//incorrect
-									setCorrect(false);
+									setIsCorrect(false);
 									setShowAnimation(true);
 								}
 							}}
@@ -234,6 +232,603 @@ export default function BasicStrategy() {
 	);
 }
 
+const getCardImage = (c: string) => {
+	if (c === 'back') {
+		return (
+			<Image
+				source={require('../assets/cards/RED_BACK.png')}
+				alt={c}
+				key={c}
+				w='75'
+				h='150'
+				resizeMode='center'
+			/>
+		);
+	} else {
+		switch (c) {
+			case '2C':
+				return (
+					<Image
+						source={require('../assets/cards/2C.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+
+			case '3C':
+				return (
+					<Image
+						source={require('../assets/cards/3C.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '4C':
+				return (
+					<Image
+						source={require('../assets/cards/4C.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '5C':
+				return (
+					<Image
+						source={require('../assets/cards/5C.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '6C':
+				return (
+					<Image
+						source={require('../assets/cards/6C.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '7C':
+				return (
+					<Image
+						source={require('../assets/cards/7C.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '8C':
+				return (
+					<Image
+						source={require('../assets/cards/8C.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '9C':
+				return (
+					<Image
+						source={require('../assets/cards/9C.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'TC':
+				return (
+					<Image
+						source={require('../assets/cards/TC.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'JC':
+				return (
+					<Image
+						source={require('../assets/cards/JC.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'QC':
+				return (
+					<Image
+						source={require('../assets/cards/QC.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'KC':
+				return (
+					<Image
+						source={require('../assets/cards/KC.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'AC':
+				return (
+					<Image
+						source={require('../assets/cards/AC.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+
+			case '2D':
+				return (
+					<Image
+						source={require('../assets/cards/2D.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+
+			case '3D':
+				return (
+					<Image
+						source={require('../assets/cards/3D.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '4D':
+				return (
+					<Image
+						source={require('../assets/cards/4D.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '5D':
+				return (
+					<Image
+						source={require('../assets/cards/5D.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '6D':
+				return (
+					<Image
+						source={require('../assets/cards/6D.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '7D':
+				return (
+					<Image
+						source={require('../assets/cards/7D.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '8D':
+				return (
+					<Image
+						source={require('../assets/cards/8D.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '9D':
+				return (
+					<Image
+						source={require('../assets/cards/9D.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'TD':
+				return (
+					<Image
+						source={require('../assets/cards/TD.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'JD':
+				return (
+					<Image
+						source={require('../assets/cards/JD.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'QD':
+				return (
+					<Image
+						source={require('../assets/cards/QD.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'KD':
+				return (
+					<Image
+						source={require('../assets/cards/KD.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'AD':
+				return (
+					<Image
+						source={require('../assets/cards/AD.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+
+			case '2H':
+				return (
+					<Image
+						source={require('../assets/cards/2H.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+
+			case '3H':
+				return (
+					<Image
+						source={require('../assets/cards/3H.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '4H':
+				return (
+					<Image
+						source={require('../assets/cards/4H.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '5H':
+				return (
+					<Image
+						source={require('../assets/cards/5H.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '6H':
+				return (
+					<Image
+						source={require('../assets/cards/6H.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '7H':
+				return (
+					<Image
+						source={require('../assets/cards/7H.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '8H':
+				return (
+					<Image
+						source={require('../assets/cards/8H.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '9H':
+				return (
+					<Image
+						source={require('../assets/cards/9H.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'TH':
+				return (
+					<Image
+						source={require('../assets/cards/TH.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'JH':
+				return (
+					<Image
+						source={require('../assets/cards/JH.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'QH':
+				return (
+					<Image
+						source={require('../assets/cards/QH.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'KH':
+				return (
+					<Image
+						source={require('../assets/cards/KH.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'AH':
+				return (
+					<Image
+						source={require('../assets/cards/AH.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+
+			case '2S':
+				return (
+					<Image
+						source={require('../assets/cards/2S.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+
+			case '3S':
+				return (
+					<Image
+						source={require('../assets/cards/3S.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '4S':
+				return (
+					<Image
+						source={require('../assets/cards/4S.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '5S':
+				return (
+					<Image
+						source={require('../assets/cards/5S.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '6S':
+				return (
+					<Image
+						source={require('../assets/cards/6S.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '7S':
+				return (
+					<Image
+						source={require('../assets/cards/7S.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '8S':
+				return (
+					<Image
+						source={require('../assets/cards/8S.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case '9S':
+				return (
+					<Image
+						source={require('../assets/cards/9S.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'TS':
+				return (
+					<Image
+						source={require('../assets/cards/TS.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'JS':
+				return (
+					<Image
+						source={require('../assets/cards/JS.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'QS':
+				return (
+					<Image
+						source={require('../assets/cards/QS.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'KS':
+				return (
+					<Image
+						source={require('../assets/cards/KS.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+			case 'AS':
+				return (
+					<Image
+						source={require('../assets/cards/AS.png')}
+						alt={c}
+						key={c}
+						w='75'
+						h='150'
+						resizeMode='center'
+					/>
+				);
+		}
+	}
+};
+
 /*
 <Image
 						w='75'
@@ -252,7 +847,7 @@ export default function BasicStrategy() {
 					/>
 
 
-*/
+
 
 const C2 = require('../assets/cards/2C.png');
 const C3 = require('../assets/cards/3C.png');
@@ -523,3 +1118,4 @@ const cardImages = {
 		uri: require('../assets/cards/AS.png'),
 	},
 };
+*/
