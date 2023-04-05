@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Image, Text, View } from 'native-base';
+import { Image, Text } from 'native-base';
 import Animated, { FadeInUp, FadeOutUp } from 'react-native-reanimated';
 
-export const Toast = ({ correct }: { correct: boolean }) => {
+export const Toast = ({ isCorrect }: { isCorrect: boolean }) => {
 	return (
 		<>
-			{correct ? (
+			{isCorrect ? (
 				<Animated.View
 					entering={FadeInUp}
 					exiting={FadeOutUp}
@@ -36,7 +36,7 @@ export const Toast = ({ correct }: { correct: boolean }) => {
 						style={styles.toastIcon}
 					/>
 					<Text style={[styles.toastText, styles.errorToastText]}>
-						Wrong!
+						Wrong! Try Again.
 					</Text>
 				</Animated.View>
 			)}
