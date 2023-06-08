@@ -1,11 +1,5 @@
 import React, { useCallback } from 'react';
-import {
-	HStack,
-	VStack,
-	Center,
-	IconButton,
-	useColorModeValue,
-} from 'native-base';
+import { HStack, VStack, IconButton, useColorModeValue } from 'native-base';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import AnimatedColorBox from './animated-color-box';
 import { Feather } from '@expo/vector-icons';
@@ -23,6 +17,10 @@ const Sidebar = (props: DrawerContentComponentProps) => {
 		navigation.navigate('Main');
 	}, [navigation]);
 
+	const handlePressCardCounting = useCallback(() => {
+		navigation.navigate('Card Counting Trainer');
+	}, [navigation]);
+
 	const handlePressMenuSettings = useCallback(() => {
 		navigation.navigate('Settings');
 	}, [navigation]);
@@ -32,7 +30,7 @@ const Sidebar = (props: DrawerContentComponentProps) => {
 	}, [navigation]);
 
 	const handlePressBasicStrategy = useCallback(() => {
-		navigation.navigate('BasicStrategy');
+		navigation.navigate('Blackjack Basic Strategy Trainer');
 	}, [navigation]);
 
 	return (
@@ -64,11 +62,18 @@ const Sidebar = (props: DrawerContentComponentProps) => {
 					Main
 				</MenuButton>
 				<MenuButton
-					active={currentRoute === 'BasicStrategy'}
+					active={currentRoute === 'Blackjack Basic Strategy Trainer'}
 					onPress={handlePressBasicStrategy}
 					icon='inbox'
 				>
-					Basic Strategy
+					Basic Strategy Trainer
+				</MenuButton>
+				<MenuButton
+					active={currentRoute === 'Card Counting Trainer'}
+					onPress={handlePressCardCounting}
+					icon='inbox'
+				>
+					Card Counting Trainer
 				</MenuButton>
 			</VStack>
 		</AnimatedColorBox>

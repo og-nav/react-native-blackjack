@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
-import { HStack, IconButton, useColorModeValue } from 'native-base';
+import { HStack, IconButton, useColorModeValue, Text, View } from 'native-base';
 import { Feather } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 const Navbar = () => {
@@ -9,6 +9,7 @@ const Navbar = () => {
 	const handlePressMenuButton = useCallback(() => {
 		navigation.openDrawer();
 	}, [navigation]);
+	const route = useRoute();
 
 	return (
 		<HStack
@@ -17,7 +18,7 @@ const Navbar = () => {
 			alignItems='center'
 			alignContent='center'
 			p={4}
-			marginBottom={-10}
+			marginBottom={-12}
 		>
 			<IconButton
 				onPress={handlePressMenuButton}
@@ -29,6 +30,9 @@ const Navbar = () => {
 					color: useColorModeValue('primary.900', 'white'),
 				}}
 			/>
+			<View justifyContent='center' borderRadius='25' p='3'>
+				<Text fontSize='17'>{route.name}</Text>
+			</View>
 		</HStack>
 	);
 };

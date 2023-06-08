@@ -4,13 +4,21 @@ import Sidebar from '../components/sidebar';
 
 //screens
 import { Main, BasicStrategy } from '../screens';
+import CardCounting from '../screens/cardcounting';
 
-const Drawer = createDrawerNavigator();
+export type DrawerParamList = {
+	Main: undefined;
+	'Blackjack Basic Strategy Trainer': undefined;
+	'Card Counting Trainer': undefined;
+	Blackjack: undefined;
+};
+
+const Drawer = createDrawerNavigator<DrawerParamList>();
 
 function DrawerNavigator() {
 	return (
 		<Drawer.Navigator
-			initialRouteName='BasicStrategy'
+			initialRouteName='Blackjack Basic Strategy Trainer'
 			drawerContent={(props) => <Sidebar {...props} />}
 			screenOptions={{
 				headerShown: false,
@@ -19,7 +27,14 @@ function DrawerNavigator() {
 			}}
 		>
 			<Drawer.Screen name='Main' component={Main} />
-			<Drawer.Screen name='BasicStrategy' component={BasicStrategy} />
+			<Drawer.Screen
+				name='Blackjack Basic Strategy Trainer'
+				component={BasicStrategy}
+			/>
+			<Drawer.Screen
+				name='Card Counting Trainer'
+				component={CardCounting}
+			/>
 		</Drawer.Navigator>
 	);
 }

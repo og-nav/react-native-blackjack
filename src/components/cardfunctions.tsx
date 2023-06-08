@@ -3,13 +3,13 @@ var _ = require('lodash');
 const suits = ['C', 'D', 'H', 'S'];
 const values = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 'T', 'J', 'Q', 'K'];
 
-export interface Card {
+export type CardType = {
 	value: string | number;
 	suit: string;
-}
+};
 
 export const createDeck = (n: number) => {
-	const deck: Card[] = [];
+	const deck: CardType[] = [];
 
 	for (let m = 0; m < n; m++) {
 		for (let i = 0; i < suits.length; i++) {
@@ -23,7 +23,7 @@ export const createDeck = (n: number) => {
 	return deck;
 };
 
-export const shuffle = (deck: Card[]) => {
+export const shuffle = (deck: CardType[]) => {
 	return _.shuffle(deck);
 };
 
@@ -93,7 +93,7 @@ const d = {
 	K: 10,
 };
 
-export const getAnswer = (ph: Card[], dh: Card) => {
+export const getAnswer = (ph: CardType[], dh: CardType) => {
 	let dealerIndex = -1;
 	const dv = dh.value.toString();
 	if (dv in d) {
@@ -204,547 +204,150 @@ export const getAnswer = (ph: Card[], dh: Card) => {
 	//return dealerIndex;
 };
 
-export const getCardImage = (props: { h: string; w: string }, c: string) => {
+const rc = {
+	2: 1,
+	3: 1,
+	4: 1,
+	5: 1,
+	6: 1,
+	7: 0,
+	8: 0,
+	9: 0,
+	T: -1,
+	J: -1,
+	Q: -1,
+	K: -1,
+	A: -1,
+	
+
+}
+export const getRunningCounts = (deck: CardType[]) => {
+	const res: number[] = []
+	res[0] = rc[deck[0].value as keyof typeof rc]
+	for (let i = 1; i < deck.length; i++) {
+		res[i] = res[i - 1] + rc[deck[i].value as keyof typeof rc]
+	}
+	return res
+}
+
+
+export const getCardImage = (c: string) => {
 	// DOES NOT CHANGE IMAGES UNLESS KEY IS INCLUDED
 	if (c === 'back') {
-		return (
-			<Image
-				source={require('../assets/cards/RED_BACK.png')}
-				alt={c}
-				key={c}
-				{...props}
-				resizeMode='center'
-			/>
-		);
+		return require('../assets/cards/RED_BACK.png');
 	} else {
 		switch (c) {
 			case '2C':
-				return (
-					<Image
-						source={require('../assets/cards/2C.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/2C.png');
 
 			case '3C':
-				return (
-					<Image
-						source={require('../assets/cards/3C.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/3C.png');
 			case '4C':
-				return (
-					<Image
-						source={require('../assets/cards/4C.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/4C.png');
 			case '5C':
-				return (
-					<Image
-						source={require('../assets/cards/5C.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/5C.png');
 			case '6C':
-				return (
-					<Image
-						source={require('../assets/cards/6C.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/6C.png');
 			case '7C':
-				return (
-					<Image
-						source={require('../assets/cards/7C.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/7C.png');
 			case '8C':
-				return (
-					<Image
-						source={require('../assets/cards/8C.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/8C.png');
 			case '9C':
-				return (
-					<Image
-						source={require('../assets/cards/9C.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/9C.png');
 			case 'TC':
-				return (
-					<Image
-						source={require('../assets/cards/TC.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/TC.png');
 			case 'JC':
-				return (
-					<Image
-						source={require('../assets/cards/JC.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/JC.png');
 			case 'QC':
-				return (
-					<Image
-						source={require('../assets/cards/QC.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/QC.png');
 			case 'KC':
-				return (
-					<Image
-						source={require('../assets/cards/KC.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/KC.png');
 			case 'AC':
-				return (
-					<Image
-						source={require('../assets/cards/AC.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/AC.png');
 
 			case '2D':
-				return (
-					<Image
-						source={require('../assets/cards/2D.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/2D.png');
 
 			case '3D':
-				return (
-					<Image
-						source={require('../assets/cards/3D.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/3D.png');
 			case '4D':
-				return (
-					<Image
-						source={require('../assets/cards/4D.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/4D.png');
 			case '5D':
-				return (
-					<Image
-						source={require('../assets/cards/5D.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/5D.png');
 			case '6D':
-				return (
-					<Image
-						source={require('../assets/cards/6D.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/6D.png');
 			case '7D':
-				return (
-					<Image
-						source={require('../assets/cards/7D.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/7D.png');
 			case '8D':
-				return (
-					<Image
-						source={require('../assets/cards/8D.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/8D.png');
 			case '9D':
-				return (
-					<Image
-						source={require('../assets/cards/9D.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/9D.png');
 			case 'TD':
-				return (
-					<Image
-						source={require('../assets/cards/TD.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/TD.png');
 			case 'JD':
-				return (
-					<Image
-						source={require('../assets/cards/JD.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/JD.png');
 			case 'QD':
-				return (
-					<Image
-						source={require('../assets/cards/QD.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/QD.png');
 			case 'KD':
-				return (
-					<Image
-						source={require('../assets/cards/KD.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/KD.png');
 			case 'AD':
-				return (
-					<Image
-						source={require('../assets/cards/AD.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/AD.png');
 
 			case '2H':
-				return (
-					<Image
-						source={require('../assets/cards/2H.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/2H.png');
 
 			case '3H':
-				return (
-					<Image
-						source={require('../assets/cards/3H.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/3H.png');
 			case '4H':
-				return (
-					<Image
-						source={require('../assets/cards/4H.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/4H.png');
 			case '5H':
-				return (
-					<Image
-						source={require('../assets/cards/5H.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/5H.png');
 			case '6H':
-				return (
-					<Image
-						source={require('../assets/cards/6H.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/6H.png');
 			case '7H':
-				return (
-					<Image
-						source={require('../assets/cards/7H.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/7H.png');
 			case '8H':
-				return (
-					<Image
-						source={require('../assets/cards/8H.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/8H.png');
 			case '9H':
-				return (
-					<Image
-						source={require('../assets/cards/9H.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/9H.png');
 			case 'TH':
-				return (
-					<Image
-						source={require('../assets/cards/TH.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/TH.png');
 			case 'JH':
-				return (
-					<Image
-						source={require('../assets/cards/JH.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/JH.png');
 			case 'QH':
-				return (
-					<Image
-						source={require('../assets/cards/QH.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/QH.png');
 			case 'KH':
-				return (
-					<Image
-						source={require('../assets/cards/KH.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/KH.png');
 			case 'AH':
-				return (
-					<Image
-						source={require('../assets/cards/AH.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/AH.png');
 
 			case '2S':
-				return (
-					<Image
-						source={require('../assets/cards/2S.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/2S.png');
 
 			case '3S':
-				return (
-					<Image
-						source={require('../assets/cards/3S.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/3S.png');
 			case '4S':
-				return (
-					<Image
-						source={require('../assets/cards/4S.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/4S.png');
 			case '5S':
-				return (
-					<Image
-						source={require('../assets/cards/5S.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/5S.png');
 			case '6S':
-				return (
-					<Image
-						source={require('../assets/cards/6S.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/6S.png');
 			case '7S':
-				return (
-					<Image
-						source={require('../assets/cards/7S.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/7S.png');
 			case '8S':
-				return (
-					<Image
-						source={require('../assets/cards/8S.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/8S.png');
 			case '9S':
-				return (
-					<Image
-						source={require('../assets/cards/9S.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/9S.png');
 			case 'TS':
-				return (
-					<Image
-						source={require('../assets/cards/TS.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/TS.png');
 			case 'JS':
-				return (
-					<Image
-						source={require('../assets/cards/JS.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/JS.png');
 			case 'QS':
-				return (
-					<Image
-						source={require('../assets/cards/QS.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/QS.png');
 			case 'KS':
-				return (
-					<Image
-						source={require('../assets/cards/KS.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/KS.png');
 			case 'AS':
-				return (
-					<Image
-						source={require('../assets/cards/AS.png')}
-						alt={c}
-						key={c}
-						{...props}
-						resizeMode='center'
-					/>
-				);
+				return require('../assets/cards/AS.png');
 		}
 	}
 };
